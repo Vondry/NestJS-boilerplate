@@ -1,0 +1,19 @@
+# We need to dynamically mainain only tenants (clubs) here (on tenant create|delete -> update policy)
+# on endpoint we add eg. @Guard('/variants', Action.POST);
+p, editor, (LHVC|LLVC-C|LLVC-D), /members, (POST|PUT|PATCH|DELETE)
+p, editor-money, (LHVC|LLVC-C|LLVC-D), /variants/:id/money, (POST|PUT|PATCH|DELETE)
+p, editor, (LHVC|LLVC-C|LLVC-D), /accommodations, (POST|PUT|PATCH|DELETE)
+p, editor, (LHVC|LLVC-C|LLVC-D), /properties, (POST|PUT|PATCH|DELETE)
+
+# Then we maintain catalogue of users and their roles within each tenant (club)
+
+# Alice (will be email or user id) is editor (meaning can access all 3 endpoints) in 2 clubs
+g, alice, editor, LHVC
+g, alice, editor, LLVC-C
+
+# Bob can also access 3 endpoints, but only in LLVC-C
+g, bob, editor, LLVC-C
+
+# Carol can access also editor-money resrouce
+g, carol, editor, LLVC-D
+g, carol, editor-money, LLVC-D

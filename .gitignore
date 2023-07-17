@@ -1,3 +1,10 @@
 .idea
 node_modules
 dist
+
+# We do not want to version generate migrations which are used only for test purpoeses
+test/migrations
+
+# Envs
+.env
+.env.test
